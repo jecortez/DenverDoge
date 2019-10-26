@@ -1,0 +1,9 @@
+# Rails ignored files
+    /DenverDoge/tmp/*
+    # Ignore all logfiles and tempfiles.
+    /DenverDoge/log/*
+    /DenverDoge/tmp/*
+    !/DenverDoge/log/.keep
+    !/DenverDoge/tmp/.keep
+    # Ignore Byebug command history file.
+    .byebug_history
