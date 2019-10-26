@@ -16,7 +16,7 @@ class Landing extends Component {
             <img
               src="https://i.imgur.com/p6Cetsi.jpg"
               width="300"
-              height="75"
+              height="65"
               alt=""
             />
           </a>
