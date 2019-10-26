@@ -28,6 +28,9 @@ Pair owners with dogs to get dogs adopted!
 # ANALYTICS
 https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/NumberofDogsupforAdoptioninDenverMetroArea-ByRegion
 [Top Dogs!](https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/TopDogs)
+
 [Breed Insights](https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/BreedInsights)
+
 [Shelter Insights](https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/ShelterInsights)
+
 ![Map of Doges](https://i.imgur.com/OfiD051.png)
