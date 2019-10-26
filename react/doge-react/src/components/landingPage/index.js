@@ -77,9 +77,11 @@ class Landing extends Component {
                 Check me out
               </label>
             </div> */}
-            <button type="submit" class="btn btn-primary">
-              Submit
-            </button>
+            <NavLink to="/survey">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </NavLink>
           </form>
           {/* Image collage */}
           <div class="dog-collage-image col-8">
