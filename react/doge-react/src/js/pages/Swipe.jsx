@@ -70,18 +70,18 @@ export default function SwipeForm() {
   const [isLoading, setIsLoading] = useState(true);
   const { query } = useClient();
   useEffect(() => {
-    const init = async () => {
-      const { error: fetchCardError, payload: cardResponse } = await query(
-        cardsQuery()
+    fetch("http://denver-doge.us-east-1.elasticbeanstalk.com/api/v1/pets")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setCards(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+        }
       );
-
-      if (!fetchCardError) {
-        setCards(cardResponse.result);
-      }
-
-      setIsLoading(false);
-    }
-    init();
   }, [query]);
 
   const remove = () => {
