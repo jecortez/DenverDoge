@@ -1,6 +1,7 @@
 class Api::V1::PetsController < ApplicationController
   def index
-    render json: Pet.all
+    offset = rand(Pet.count)
+    render json: Pet.offset(offset).limit(10)
   end
 
   def show
