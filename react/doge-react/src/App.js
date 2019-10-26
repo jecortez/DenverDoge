@@ -1,14 +1,23 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Landing from "./components/landingPage/index";
 
-function App() {
+
+
+// Logged In
+// ----------------------------------
+import Swipe from './js/pages/Swipe';
+
+const App = () => {
   return (
-    <div>
-      <Landing />
-    </div>
+
+    <BrowserRouter>
+      <Switch>
+        <Route path="/swipe" component={Swipe} />
+      </Switch>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
