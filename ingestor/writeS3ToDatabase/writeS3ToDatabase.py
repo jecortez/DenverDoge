@@ -1,6 +1,7 @@
 import boto3
 import json
 import datetime
+from datetime import datetime, timedelta
 import smart_open
 import pymysql.cursors
 import uuid
@@ -14,16 +15,17 @@ def get_photos(photos_list):
 		return ""
 
 def get_filename():
-	 date = datetime.datetime.now()
+	 date = datetime.now() - timedelta(hours=6)
 	 # Format is Year_Month_Day_Hour
 	 string = date.strftime("%Y_%m_%d_%H")
 	 return "petfinder/"+string+"_doges.json"
 
 def lambda_handler(event, context):
 	# TODO implement
+	grab_file_from_s3()
 	return {
 		'statusCode': 200,
-		'body': json.dumps('Hello from Lambda!')
+		'body': json.dumps('Uploaded!')
 	}
 
 def get_activity_level(json_object):
@@ -269,5 +271,3 @@ def grab_file_from_s3():
 	for json_object in json.loads(file_contents):
 		write_to_database(json_object)
 	#json.read(sample_data)
-
-grab_file_from_s3()
