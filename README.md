@@ -5,6 +5,7 @@ Repo for the 2019 Hackathon Dog Finder App
 
 # TEAM
 Sean - Fearless Leader and Data Ingestion
+
 Anna - Backend
 Autumn - Frontend
 Derek - Frontend
