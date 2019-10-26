@@ -20,6 +20,9 @@ class Landing extends Component {
               alt=""
             />
           </a>
+          <a class="navbar-brand" href="https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/NumberofDogsupforAdoptioninDenverMetroArea-ByRegion">
+            Analytics
+          </a>
           <form class="form-inline my-2 my-lg-0">
             <input
               class="form-control mr-sm-2"
