@@ -1,0 +1,9 @@
+* {
+    background: whitesmoke
+}
+
+.register-form {
+    width: 55vh;
+    position: relative;
+    margin: 15% 20% 15% 5%
+}
