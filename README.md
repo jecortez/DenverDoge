@@ -1,6 +1,5 @@
 # DenverDoge
 Repo for the 2019 Hackathon Dog Finder App
-
 ![DenverDoge](https://i.imgur.com/wQljxLc.jpg)
 
 # TEAM
@@ -12,7 +11,9 @@ Jesus - Database and Data Ingestion ::
 Steven - Data Ingestion ::
 Trinity - Analytics ::
 Andrew - Design ::
-!(Team Doge)[https://i.imgur.com/nv3j8pr.jpg]
+![Team Doge](https://i.imgur.com/nv3j8pr.jpg)
+
+
 # GOAL: 
 Pair owners with dogs to get dogs adopted!
 ![Doge](https://i.imgur.com/KHnMLFk.jpg)
