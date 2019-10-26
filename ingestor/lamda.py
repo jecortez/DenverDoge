@@ -16,7 +16,8 @@ def get_request_token():
 	# get token 
     #headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     params = {"grant_type": "client_credentials", "client_id":"hQRiuSSq0RumWHNqDPV8kGfXj80n1cqKvuhNXrDIou0MzeEAOf", "client_secret":"D5PLnW5LUHwYNnfetdVXgEO8pmIEuLLMuwnlyYNk"}
-    requests.get("https://api.petfinder.com/v2/oauth2/token", params={params})
+    c = requests.post("https://api.petfinder.com/v2/oauth2/token", data=params)
+    return(c.json()['access_token'])
 
 # curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjkwOTFjZTJlNTk1NzgzNmNlOGNhYzJiY2IwMzdjYjgwN2E5ZDFkN2MyYmEzMjMzZWQyNDdlOGY5OGE2YmUzNTgwMGZjNGIyZDc1M2IwM2MwIn0.eyJhdWQiOiJoUVJpdVNTcTBSdW1XSE5xRFBWOGtHZlhqODBuMWNxS3Z1aE5YckRJb3UwTXplRUFPZiIsImp0aSI6IjkwOTFjZTJlNTk1NzgzNmNlOGNhYzJiY2IwMzdjYjgwN2E5ZDFkN2MyYmEzMjMzZWQyNDdlOGY5OGE2YmUzNTgwMGZjNGIyZDc1M2IwM2MwIiwiaWF0IjoxNTcyMTA0NzEwLCJuYmYiOjE1NzIxMDQ3MTAsImV4cCI6MTU3MjEwODMxMCwic3ViIjoiIiwic2NvcGVzIjpbXX0.fR6_7z-XF-CV4pbO6jbuaRKUhLxW-3xLMj_nGU7dUZAlsrtc9BCD0T9G3l3jAMvrk6UY2LIP3tXu5BYeyAWGByFweLOay9rXniwV6pl85Q60BW_EpVP_8VWhy5luY88Y5mVIZb5lOhL1WXLY4jq9vWs2Se2629MrzgNvvT5o1zLKQHbqimghn-60Bsex2lTr4wXIj3WErLhQW4O9cJG4ckRvQ64wagXTKePmVsCtu-AU4OguTPF3L2VOB6eY4qJH_dPotE3pnGjPEUr26s6HqfGAwvJCsQRZCBBRKWH10LwdEz-DSO6UuWvgnZWA_A77WpnoGXOQN9rCZghD8otr4A" GET https://api.petfinder.com/v2/animals
 
