@@ -4,13 +4,14 @@ import requests
 import json
 import boto3
 import datetime
+from botocore.handlers import disable_signing
 
 #to prepend to the filena
 def get_filename():
  date = datetime.datetime.now()
  # Fromat is Year_Month_Day_Hour
  string = date.strftime("%Y_%m_%d_%H")
- return string+"_doges.json"
+ return 'petfinder/'+string+"_doges.json"
 
 def lambda_handler(event, context):
     # TODO implement
@@ -41,6 +42,7 @@ def request_doges_petfinder(petFinderToken):
     next_link = 'xyz'
     print('abc')
     # loop through pages until they don't exist 
+    # while pagenumber < 4: 
     while next_link:
         print (next_link)
         # next_page= + str(pagenumber)
@@ -65,7 +67,7 @@ def request_doges_petfinder(petFinderToken):
 
         response = requests.request("GET", base_url, headers=headers, params=querystring)
         list_of_dogs+= (response.json()['animals'])
-        next_link= ''
+        # next_link= ''
         # next_link= response.json()["pagination"]['_links']["next"]
     return list_of_dogs
         # print(response.text)
@@ -84,9 +86,10 @@ def request_doges_petfinder(petFinderToken):
 # language governing permissions and limitations under the License.
 
 def upload_doge_to_s3(upload_file):
+    
     s3 = boto3.resource('s3')
+    s3.meta.client.meta.events.register('choose-signer.s3.*', disable_signing)
     s3object = s3.Object('denverdogedata', get_filename())
-
     s3object.put(
         Body=(bytes(json.dumps(upload_file).encode('UTF-8')))
     )
