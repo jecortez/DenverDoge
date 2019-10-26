@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import "./landing.css";
 
 class Landing extends Component {
@@ -34,11 +35,11 @@ class Landing extends Component {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Link
+                <a class="nav-link" href="/swipe">
+                  Find a Doge
                 </a>
               </li>
-              <li class="nav-item dropdown">
+              {/* <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -62,8 +63,8 @@ class Landing extends Component {
                     Something else here
                   </a>
                 </div>
-              </li>
-              <li class="nav-item">
+              </li> */}
+              {/* <li class="nav-item">
                 <a
                   class="nav-link disabled"
                   href="#"
@@ -72,21 +73,28 @@ class Landing extends Component {
                 >
                   Disabled
                 </a>
-              </li>
+              </li> */}
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input
                 class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
+                placeholder="username"
+                aria-label="username"
               />
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
+              <input
+                class="form-control mr-sm-2"
+                type="password"
+                placeholder="password"
+                aria-label="password"
+              />
+              <NavLink to="/swipe">
+                <button
+                  class="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  Login
+                </button>
+              </NavLink>
             </form>
           </div>
         </nav>
@@ -115,7 +123,7 @@ class Landing extends Component {
                 placeholder="Password"
               />
             </div>
-            <div class="form-group form-check">
+            {/* <div class="form-group form-check">
               <input
                 type="checkbox"
                 class="form-check-input"
@@ -124,15 +132,17 @@ class Landing extends Component {
               <label class="form-check-label" for="exampleCheck1">
                 Check me out
               </label>
-            </div>
+            </div> */}
             <button type="submit" class="btn btn-primary">
               Submit
             </button>
           </form>
-          <div class="register-form col-8">
+          {/* Image collage */}
+          <div class="image-collage col-8">
             <img
               src="https://www.sciencemag.org/site/extra/dogs/dog-collage.jpg"
               alt="doggo collage"
+              class="dog-collage-image"
             />
           </div>
         </div>
