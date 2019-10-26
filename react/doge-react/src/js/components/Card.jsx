@@ -1,21 +1,11 @@
 import React from "react";
 
-const cardStyles = {
-  background: "whitesmoke",
-  borderRadius: 3,
-  width: "250px",
-  height: "250px",
-  cursor: "pointer",
-  userSelect: "none",
-  position: "absolute",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  top: 0
+export default function Card({ cardAttributes }) {
+  return (
+    <div className="card">
+      <img className="card-img-top" src={cardAttributes.image_url} />
+      <h5 className="card-title">{cardAttributes.name}</h5>
+      <p className="card-text">{cardAttributes.description}</p>
+    </div>
+  );
 };
-
-const Card = ({ zIndex = 0, children }) => (
-  <div style={{ ...cardStyles, zIndex }}>{children}</div>
-);
-
-export default Card;
