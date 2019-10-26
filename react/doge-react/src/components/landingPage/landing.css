@@ -1,0 +1,17 @@
+* {
+    background: whitesmoke
+}
+
+.register-form {
+    width: 55vh;
+    position: relative;
+    margin: 15% 7% 15% 5%
+}
+
+.dog-collage-image {
+    vertical-align: middle;
+    border-style: none;
+    height: 50%;
+    width: 70%;
+    margin-top: 20%;
+}
