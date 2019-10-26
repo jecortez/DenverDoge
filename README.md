@@ -20,3 +20,6 @@ Pair owners with dogs to get dogs adopted!
 
 # TINDER FOR DOG ADOPTION
 ![Sparky](https://i.imgur.com/ci9SHIu.jpg)
+
+# TECH
+![Tech Stack](https://i.imgur.com/tZvEAVu.png)
