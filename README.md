@@ -3,7 +3,7 @@ Repo for the 2019 Hackathon Dog Finder App
 ![DenverDoge](https://i.imgur.com/wQljxLc.jpg)
 
 # TEAM
-Sean - Fearless Leader and Data Ingestion ::
+:: Sean - Fearless Leader and Data Ingestion ::
 Anna - Backend :: 
 Autumn - Frontend ::
 Derek - Frontend ::
