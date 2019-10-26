@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swipeable from "react-swipy";
+import { useClient } from "react-fetching-library";
+
 
 import Card from "../components/Card";
 import Button from "../components/Button";
@@ -22,8 +24,8 @@ const actionsStyles = {
   marginTop: 12
 };
 
-const friendQuery = () => ({
-  endpoint: '/friend',
+const cardsQuery = () => ({
+  endpoint: 'http://denver-doge.us-east-1.elasticbeanstalk.com/api/v1/pets',
 })
 
 export default function SwipeForm() {
@@ -65,21 +67,22 @@ export default function SwipeForm() {
         "environment_cats": "true"
       },
   ]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // userEffect(() => {
-  //   const init = async () => {
-  //     const { error: fetchFriendError, payload: friendResponse } = await query(
-  //       friend
-  //     );
-  //
-  //     if (!fetchFriendError) {
-  //       setFriend(friendResponse.result);
-  //     }
-  //
-  //     setIsLoading(false);
-  //   }
-  //   init();
-  // }, [query]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { query } = useClient();
+  useEffect(() => {
+    const init = async () => {
+      const { error: fetchCardError, payload: cardResponse } = await query(
+        cardsQuery()
+      );
+
+      if (!fetchCardError) {
+        setCards(cardResponse.result);
+      }
+
+      setIsLoading(false);
+    }
+    init();
+  }, [query]);
 
   const remove = () => {
     setCards(cards.slice(1, cards.length))
