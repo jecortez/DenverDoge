@@ -24,3 +24,7 @@ Pair owners with dogs to get dogs adopted!
 
 # TECH
 ![Tech Stack](https://i.imgur.com/tZvEAVu.png)
+
+# ANALYTICS
+https://public.tableau.com/profile/trinity.moehr#!/vizhome/Dog1_15721254044560/NumberofDogsupforAdoptioninDenverMetroArea-ByRegion
+![Map of Doges](https://i.imgur.com/OfiD051.png)
