@@ -6,15 +6,8 @@ Repo for the 2019 Hackathon Dog Finder App
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 
 # http://denverdoge.com 
-
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
-![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
