@@ -9,102 +9,111 @@ from smart_open import open
 import time
 
 def get_photos(photos_list):
-	if photos_list:
-		return photos_list[0]['full']
-	else:
-		return ""
+  if photos_list:
+    return photos_list[0]['full']
+  else:
+    return ""
 
 def get_filename():
-	 date = datetime.now() - timedelta(hours=6)
-	 # Format is Year_Month_Day_Hour
-	 string = date.strftime("%Y_%m_%d_%H")
-	 return "petfinder/"+string+"_doges.json"
+   date = datetime.now() - timedelta(hours=1)
+   # Format is Year_Month_Day_Hour
+   string = date.strftime("%Y_%m_%d_%H")
+   return "petfinder/"+string+"_doges.json"
 
 def lambda_handler(event, context):
-	# TODO implement
-	grab_file_from_s3()
-	return {
-		'statusCode': 200,
-		'body': json.dumps('Uploaded!')
-	}
+  # TODO implement
+  grab_file_from_s3()
+  return {
+    'statusCode': 200,
+    'body': json.dumps('Uploaded!')
+  }
 
 def get_activity_level(json_object):
-	return "LOW"
-	
+  description = json_object['description']
+  if not description:
+    return ""
+  if any(word in description for word in ['hiking', 'active', 'running', 'run', 'hike', 'hyper', 'energetic', 'jumper']):
+    return "HIGH"
+  elif any(word in description for word in ['playful', 'silly', 'fun', 'funloving', 'social', 'curious', 'bright', 'silly']):
+    return "MEDIUM"
+  elif any(word in description for word in ['chill', 'docile', 'calm', 'mellow', 'lazy', 'sleep', 'laid back', 'couch potato', 'quiet']):  
+    return "LOW"
+  else: 
+    return ""
+
 def write_to_database(json_object):
-	
-	connection = pymysql.connect(host='denverdoge.co5hqpwgtu5w.us-east-1.rds.amazonaws.com',
-							 user='root',
-							 password='denverdoge',
-							 db='denverdoge',
-							 charset='utf8mb4',
-							 port=3306)
+  
+  connection = pymysql.connect(host='denverdoge.co5hqpwgtu5w.us-east-1.rds.amazonaws.com',
+               user='root',
+               password='denverdoge',
+               db='denverdoge',
+               charset='utf8mb4',
+               port=3306)
 
-	batch_id = str(uuid.uuid1())
-	with connection.cursor() as cursor:
-		# Create a new record
-		# sql = """
-		# INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `type`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
-		# VALUES
-		# (1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)	
-		# sql = """
-		# INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `type`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
-		# VALUES
-		# (1, "batch_id", "external_id", "url", "type", "species", "age", "gender", "size", "coat", "tags", "name", "description", "image_url", "status", "breeds_primary", "breeds_secondary", 1, "colors_primary", "colors_secondary", "colors_tertiary", "attributes_activity_level", 1, 1, 1, 1, 1, 1, 1, 1)	
-		# """
+  batch_id = str(uuid.uuid1())
+  with connection.cursor() as cursor:
+    # Create a new record
+    # sql = """
+    # INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `type`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
+    # VALUES
+    # (1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) 
+    # sql = """
+    # INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `type`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
+    # VALUES
+    # (1, "batch_id", "external_id", "url", "type", "species", "age", "gender", "size", "coat", "tags", "name", "description", "image_url", "status", "breeds_primary", "breeds_secondary", 1, "colors_primary", "colors_secondary", "colors_tertiary", "attributes_activity_level", 1, 1, 1, 1, 1, 1, 1, 1)  
+    # """
 
-		# cursor.execute(sql, ())
-		# connection.commit()
-		check_dupe_sql = """
-			SELECT *
-			FROM `pets`
-			WHERE external_id = %s
-		"""
-		
-		cursor.execute(check_dupe_sql, (json_object['id']))
-		result=cursor.fetchone()
-		if result:
-			print("ID " + str(json_object['id']) + " is a duplicate! Not adding.")
-		else:
+    # cursor.execute(sql, ())
+    # connection.commit()
+    check_dupe_sql = """
+      SELECT *
+      FROM `pets`
+      WHERE external_id = %s
+    """
+    
+    cursor.execute(check_dupe_sql, (json_object['id']))
+    result=cursor.fetchone()
+    if result:
+      print("ID " + str(json_object['id']) + " is a duplicate! Not adding.")
+    else:
 
-			sql = """
-			INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `type`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
-			VALUES
-			(1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %r, %s, %s, %s, %s, %r, %r, %r, %r, %r, %r, %r, %r)	
-			"""
-			cursor.execute(sql, (
-				batch_id,
-				str(json_object['id']),
-				str(json_object['url']),
-				str(json_object['type']),
-				str(json_object['species']),
-				str(json_object['age']),
-				str(json_object['gender']),
-				str(json_object['size']),
-				str(json_object['coat']),
-				str(json_object['tags']),
-				str(json_object['name']),
-				str(json_object['description']),
-				get_photos(json_object['photos']),
-				str(json_object['status']),
-				str(json_object['breeds']['primary']),
-				str(json_object['breeds']['secondary']),
-				bool(json_object['breeds']['mixed']),
-				str(json_object['colors']['primary']),
-				str(json_object['colors']['secondary']),
-				str(json_object['colors']['tertiary']),
-				get_activity_level(str(json_object)),
-				bool(json_object['attributes']['spayed_neutered']),
-				bool(json_object['attributes']['house_trained']),
-				bool(json_object['attributes']['declawed']),
-				bool(json_object['attributes']['special_needs']),
-				bool(json_object['attributes']['shots_current']),
-				bool(json_object['environment']['children']),
-				bool(json_object['environment']['dogs']),
-				bool(json_object['environment']['cats'])
-				))
-			connection.commit()
-			print("Added " + str(json_object['id']) + " to the database")
+      sql = """
+      INSERT INTO `pets` (`source_id`, `batch_id`, `external_id`, `url`, `species`, `age`, `gender`, `size`, `coat`, `tags`, `name`, `description`, `image_url`, `status`, `breeds_primary`, `breeds_secondary`, `breeds_mixed`, `colors_primary`, `colors_secondary`, `colors_tertiary`, `attributes_activity_level`, `attributes_spayed_neutered`, `attributes_house_trained`, `attributes_declawed`, `attributes_special_needs`, `attributes_shots_current`, `environment_children`, `environment_dogs`, `environment_cats`)
+      VALUES
+      (1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %r, %s, %s, %s, %s, %r, %r, %r, %r, %r, %r, %r, %r) 
+      """
+      cursor.execute(sql, (
+        batch_id,
+        str(json_object['id']),
+        str(json_object['url']),
+        str(json_object['species']),
+        str(json_object['age']),
+        str(json_object['gender']),
+        str(json_object['size']),
+        str(json_object['coat']),
+        str(json_object['tags']),
+        str(json_object['name']),
+        str(json_object['description']),
+        get_photos(json_object['photos']),
+        str(json_object['status']),
+        str(json_object['breeds']['primary']),
+        str(json_object['breeds']['secondary']),
+        bool(json_object['breeds']['mixed']),
+        str(json_object['colors']['primary']),
+        str(json_object['colors']['secondary']),
+        str(json_object['colors']['tertiary']),
+        get_activity_level(json_object),
+        bool(json_object['attributes']['spayed_neutered']),
+        bool(json_object['attributes']['house_trained']),
+        bool(json_object['attributes']['declawed']),
+        bool(json_object['attributes']['special_needs']),
+        bool(json_object['attributes']['shots_current']),
+        bool(json_object['environment']['children']),
+        bool(json_object['environment']['dogs']),
+        bool(json_object['environment']['cats'])
+        ))
+      connection.commit()
+      print("Added " + str(json_object['id']) + " to the database")
 
 sample_data = """[
   {
@@ -254,20 +263,20 @@ sample_data = """[
 ]
 """
 def grab_file_from_s3():
-	# Create an S3 client
-	# s3 = boto3.client('s3')
+  # Create an S3 client
+  # s3 = boto3.client('s3')
 
-	# filename = date_string + '_doges.jsonl'
-	# bucket_name = 'denverdogedata'
+  # filename = date_string + '_doges.jsonl'
+  # bucket_name = 'denverdogedata'
 
-	# Uploads the given file using a managed uploader, which will split up large
-	# files automatically and upload parts in parallel.
+  # Uploads the given file using a managed uploader, which will split up large
+  # files automatically and upload parts in parallel.
 
-	print("Grabbing file")
-	file_contents = ""
-	for line in open('https://denverdogedata.s3-us-west-1.amazonaws.com/' + str(get_filename())):
-		file_contents += line
+  print("Grabbing file")
+  file_contents = ""
+  for line in open('https://denverdogedata.s3-us-west-1.amazonaws.com/' + str(get_filename())):
+    file_contents += line
 
-	for json_object in json.loads(file_contents):
-		write_to_database(json_object)
-	#json.read(sample_data)
+  for json_object in json.loads(file_contents):
+    write_to_database(json_object)
+  #json.read(sample_data)
