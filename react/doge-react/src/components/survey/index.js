@@ -50,6 +50,7 @@ class Survey extends Component {
                 <option value="cats">Cats</option>
                 <option value="dogs">Dogs</option>
                 <option value="other">Other</option>
+                <option value="no">No</option>
               </select>
             </div>
             <label className="Register-label">

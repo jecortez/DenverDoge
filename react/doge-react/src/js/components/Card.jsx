@@ -10,4 +10,4 @@ export default function Card({ cardAttributes }) {
       <p className="card-text">{cardAttributes.description}</p>
     </div>
   );
-};
+}
