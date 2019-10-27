@@ -10,7 +10,8 @@ const appStyles = {
   height: "100%",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  // alignItems: "center",
+  margin: "4rem",
   width: "100%",
   minHeight: "100vh",
   fontFamily: "sans-serif",
@@ -95,7 +96,7 @@ export default function SwipeForm() {
           <div style={wrapperStyles}>
             <Swipeable
               buttons={({ right, left }) => (
-                <div style={actionsStyles}>
+                <div className="btn__container" style={actionsStyles}>
                   <Button onClick={left}>Reject</Button>
                   <Button onClick={right}>Accept</Button>
                 </div>

@@ -1,3 +1,28 @@
-h3 {
-  color: blue;
+.img__circle {
+  width: 200px;
+  height: 300px;
+  background: #F00;
+  border-radius: 50%;
+  transform: scale(.76, .5);
+}
+
+.card__swipe {
+  background-image: url("https://i.imgur.com/ez21eyG.png");
+  background-size: cover;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.btn__container {
+  position: absolute;
+  right:    0;
+  bottom:   12rem;
+}
+
+.btn__container button {
+  margin: 0 1rem;
+  border: 2px solid black;
 }
