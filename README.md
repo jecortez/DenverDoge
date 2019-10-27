@@ -28,8 +28,8 @@ Andrew - Design ::
 
 
 # GOAL: 
-Pair owners with dogs to get dogs adopted!
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
+Pair owners with dogs to get dogs adopted!
 ![cooldoge](https://i.imgur.com/HB9LR5C.gif)
 
 ![Doge](https://i.imgur.com/KHnMLFk.jpg)
